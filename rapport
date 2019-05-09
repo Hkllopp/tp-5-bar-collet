@@ -1,0 +1,18 @@
+__Exercice 1__
+
+2) "fdisk -l" permet de lister les disques détéctés par le système.
+
+3) "fdisk/dev/sdb" permet d'accéder au disque dur B (celui créé avec 5Go). Ensuite, on fait n pour créer des partitions (on set ensuite la taaille) et t pour changer le type (linux et NTFS).
+
+4) On utilise la commande "mkfs.[type] [adresse de la partition]" pour les formater leurs systèmes de fichiers.
+
+5) Les partitions ne sont pas encore montées donc la commande [df -tT] ne recense pas.
+
+6) Dans le fichier /etc/fstab, on va écrire les lignes suivantes :
+/dev/sdb1 /data ext4 defaults 0 0
+/dev/sdb2 /win ntfs defaults 0 0
+Ces lignes nous permettront de monter la partition au démarrage aux dossier donné avec le type donné et les options en 0.
+
+7) [mount -a] executera le fichier /etc/fstab donc c'est un équivalent à relancer l'ordinateur. Par contre, il faut créer les fichier où les partitions seront montées. On fait alors "mkdir [/data ou /win]".
+
+8) 
