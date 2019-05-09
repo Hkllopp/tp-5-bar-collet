@@ -19,10 +19,45 @@ Ces lignes nous permettront de monter la partition au démarrage aux dossier don
 
 9) Problème de version de VirtualBox qui empêche de créer un dossier partagé
 
+
 __Exercice 2__
 
 1) On démonte les partitions avec la commande "unmount [/data ou /win]. On supprime ensuite les deux lignes de 
 ) avec "nano /etc/fstab". On relance la machien pour monter uniquement les partitions utiles.
 
 
-2) On utilise la commande "fdisk /dev/sdb" pour accéder aux partitions du disque. On met ensuite d  pour delete les 2 partitions. On en créé ensuite une nouvelle avec mkfs.8E /dev/sdb1
+2) On utilise la commande "fdisk /dev/sdb" pour accéder aux partitions du disque. On met ensuite d  pour delete les 2 partitions. On en créé ensuite une nouvelle partition avec n et on la modifie en LVM avec le code 8E en hexa.
+
+3) On utilise "pvcreate /dev/sdb1/" pour creer le volume physique et "pvdisplay" pour en afficher les informations.
+
+4) On utilise la commande "vgcreate volume1 /dev/sbd1" pour créer un volume phyisque et "vgdisplay" pour afficher les informations sur ce volume physique.
+
+5) On utilise la commande "lvcreate -l 100%VG volume1 -n lvData" pour creer un volume logique à partir du volume physique volume1. On prend 100% du volume1.
+
+6) On utilise la commande "fdisk /dev/volume1/lvData" pour editer le volume logique et n pour créer la partition. On fait "mkfs.ext4 /dev/volume1/lvData" pour monter la partition en ext4.
+On écrit "/dev/volume1./lvData /data ext4 defaults 0 0" dans le fichier /ect/fstab pour le monter au démarrage.
+
+7) Voir 2) et 3)
+
+8) On utilise "vgextend /dev/volume1 /dev/sdc1" pour ajouter le nouveau disque au groupe de volume.
+
+9) On utilise "lvresize -l 100%VG /dev/volume1/lvData" pour étendre le volume logique à 100% du volume physique et "resize2fs /dev/volume1/lvData" pour redimensionner le système de fichier.
+
+
+__Exercice 3__
+
+1) On utilise la commande "echo "rappel de réunion" | at now + 3 minutes" puis "atq" pour voir la queue de la commande at.
+
+2) Le message ne s'affiche pas dans la console car les outputs de la commande at sont censées s'envoyer par mail.
+
+3) On fait "crontab -e" pour ouvrir le service cron puis on écrit "3 * * * * echo "Il faut réviser pour l'examen! "" dans le fichier. On lance ensuite le service avec "service cron start". Pour tester, on a renplacé par "*/1 * * * * /bin/sleep 61" afin de lancer un sleep toutes les minutes. On pourra inspecter avec "ps afx" et voir le sleep. On voit bien dans l'arborescence que la commande sleep se lance bien mais pas dans le terminal 1 (donc pas affiché). On pourrait faire une redirection dans un fichier log si on veut afficher les commandes.
+
+4) Pareil que pour le 3) mais avec la commande "*/15 * * * * echo "Test""
+
+5) Pareil que pour le 3) mais avec la commande "2/5 18 1,15 * * echo "Test""
+
+6) Pareil que pour le 3) mais avec la commande "17 1-5 * * echo "Test""
+
+7) Pareil que pour le 3) mais avec la commande "3 * * * * echo "Test""
+
+8) "crontab -r [username]"
