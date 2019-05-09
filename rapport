@@ -2,7 +2,7 @@ __Exercice 1__
 
 2) "fdisk -l" permet de lister les disques détéctés par le système.
 
-3) "fdisk/dev/sdb" permet d'accéder au disque dur B (celui créé avec 5Go). Ensuite, on fait n pour créer des partitions (on set ensuite la taaille) et t pour changer le type (linux et NTFS).
+3) "fdisk /dev/sdb" permet d'accéder au disque dur B (celui créé avec 5Go). Ensuite, on fait n pour créer des partitions (on set ensuite la taaille) et t pour changer le type (linux et NTFS).
 
 4) On utilise la commande "mkfs.[type] [adresse de la partition]" pour les formater leurs systèmes de fichiers.
 
@@ -15,4 +15,14 @@ Ces lignes nous permettront de monter la partition au démarrage aux dossier don
 
 7) [mount -a] executera le fichier /etc/fstab donc c'est un équivalent à relancer l'ordinateur. Par contre, il faut créer les fichier où les partitions seront montées. On fait alors "mkdir [/data ou /win]".
 
-8) 
+8) Problème de version de VirtualBox qui empêche de mount la clef USB
+
+9) Problème de version de VirtualBox qui empêche de créer un dossier partagé
+
+__Exercice 2__
+
+1) On démonte les partitions avec la commande "unmount [/data ou /win]. On supprime ensuite les deux lignes de 
+) avec "nano /etc/fstab". On relance la machien pour monter uniquement les partitions utiles.
+
+
+2) On utilise la commande "fdisk /dev/sdb" pour accéder aux partitions du disque. On met ensuite d  pour delete les 2 partitions. On en créé ensuite une nouvelle avec mkfs.8E /dev/sdb1
